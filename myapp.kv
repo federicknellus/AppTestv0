@@ -1,0 +1,152 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+BoxLayout:
+	canvas.before:
+        Color:
+            rgba: 0,0,0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	orientation: 'vertical'
+	GridLayout:
+		cols: 5
+		size_hint: 1,0.07
+		Button:
+			text:'Home'
+			on_press: root.ids.manager.current = 'home'
+			on_press: root.ids.manager.transition = NoTransition()
+		Button:
+			text:'Spaced Repetition'
+			on_press: root.ids.manager.current = 'spacedrepetitionmenu'
+			on_press: root.ids.manager.transition = NoTransition()
+		Button:
+			text:'prova'
+			on_press: root.ids.manager.current = ''
+			on_press: root.ids.manager.transition = NoTransition()
+		Button:
+			text:'prova'
+			on_press: root.ids.manager.current = ''
+			on_press: root.ids.manager.transition = NoTransition()
+		Button:
+			text:'prova'
+			on_press: root.ids.manager.current = ''
+			on_press: root.ids.manager.transition = NoTransition()
+	ScreenManager:
+		id : manager
+		NellusMenu
+	    SpacedRepetitionMenu
+		AddAreaSpacedRepetition
+<Label>:
+	background_color: 84/255, 94/255, 117/255, 1
+	canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	color: 247/255, 247/255, 255/255
+
+<Button>:
+	background_normal: ''
+	background_color: 84/255, 94/255, 117/255
+	#color: 219/255, 211/255, 216/255
+	#color: 216/255, 180/255, 160/255
+	color: 242/255, 208/255, 164/255
+<AddAreaSpacedRepetition>:
+	name : "addareaspacedrepetition"
+	BoxLayout:
+		orientation: 'vertical'
+		GridLayout:
+			cols:2
+			Label:
+				text: "Front"
+
+			TextInput:
+				id: frontlabelti
+				use_bubble: 1
+				multiline: False
+			Label:
+				text: "Back"
+			TextInput:
+				id: backlabelti
+				use_bubble: False
+
+		Button:
+			text: "Submit"
+			on_press: root.addbuttonspacedrepetition()
+
+
+
+<SpacedRepetitionMenu>:
+    name: "spacedrepetitionmenu"
+	GridLayout:
+
+        cols:1
+        Label:
+            text: "Spaced Repetition Menu"
+        GridLayout:
+            cols:2
+            Label:
+                text: "Cards:"
+            Label:
+                text: root.numberofcards
+            Label:
+                text: "To study"
+            Label:
+                text: root.numberofcardstostudy
+            Button:
+                text: "Study"
+                on_press: if root.therearequestions==True: root.askquestion()
+            Button:
+                text: "Add"
+                on_press: root.manager.current = 'addareaspacedrepetition'
+
+        Label:
+            text: root.question
+        Label:
+            text: root.answer
+        GridLayout:
+            id: votearea
+            cols:6
+<GridLayout>:
+	background_color: 84/255, 94/255, 117/255, 1
+	canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<NellusMenu>:
+	name: 'home'
+	BoxLayout:
+		orientation: 'vertical'
+		Label:
+			font_size: 40
+			size_hint:1,0.2
+			text:root.data
+		GridLayout:
+			size_hint: 1,0.2
+			cols:3
+			Label:
+				text: "Daily"
+			Label:
+				text: "Weekly"
+			Label:
+				text: "Monthly"
+		GridLayout:
+			cols:3
+			Label:
+				valign: 'top'
+				background_color: 0,0,0, 1
+				canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        pos: self.pos
+
+                        size: self.size
+				text: "a"
+			Label:
+				text: "b"
+			Label:
+				text: "c"
